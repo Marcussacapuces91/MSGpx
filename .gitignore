@@ -1,0 +1,6 @@
+obj/
+bin/
+msgpx.*
+*.workspace
+*.gpx
+tinyxml/docs/
