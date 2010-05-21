@@ -66,10 +66,23 @@ int main(int argc, const char* argv[])
         try {
             cout << "Analyse du fichier " << argv[1] << endl;
             Gpx gpx(argv[1]);
-            cout << "D‚nivel‚s" << endl;
-            cout << "  Positif (mont‚e) : " << gpx.getDenivelePositif() << "m" << endl;
-            cout << "  N‚gatif (descente) : " << gpx.getDeniveleNegatif() << "m" << endl;
+            if (gpx.noTrack()) {
+                cout << "Pas de trace exploitable." << endl;
+            } else {
+                cout << "Extr‚mit‚es" << endl;
+                cout << "  Alt d‚part : " << gpx.premier()->ele() << "m" << endl;
+                cout << "  Alt arriv‚e : " << gpx.dernier()->ele() << "m" << endl;
+                cout << "  Distance … vol d'oiseau : " << int(gpx.premier()->distance(*gpx.dernier()) + 0.5) << "m" << endl;
+                cout << endl;
+                cout << "D‚nivel‚s" << endl;
+                cout << "  Positif (mont‚e) : " << gpx.getDenivelePositif() << "m" << endl;
+                cout << "  N‚gatif (descente) : " << gpx.getDeniveleNegatif() << "m" << endl;
+                cout << endl;
+                cout << "Distance parcourue" << endl;
+                cout << "  " << int(gpx.longueur() + 0.5) << "m" << endl;
+            }
             return EXIT_SUCCESS;
+
         } catch (exception& e) {
             cerr << e.what() << endl;
             return EXIT_FAILURE;

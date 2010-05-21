@@ -10,6 +10,7 @@
 #include <string>
 #include "tinyxml\tinyxml.h"
 #include <vector>
+#include "segment.h"
 
 using namespace std;
 
@@ -22,15 +23,16 @@ class Track
 /// Description de la trace.
         const string fDesc;
 
-/// Structure du Point.
-        struct Point { double lat, lon; float alt; string time; };
-
 /// Segments composants une trace.
-        vector< vector<Point> > fSegments;
+        vector<Segment*> fSegments;
 
     protected:
 
     public:
+/// Définition du Sens et de ses 2 valeurs possibles.
+/// \see getDenivele().
+        enum Sens { MONTANT, DESCENDANT};
+
 /**
  * Constructeur de l'instance.
  * \param aName Nom de l'instance.
@@ -56,13 +58,27 @@ class Track
  * Retourne la somme des montées.
  * \return Un entier indiquant la somme des progressions positives.
  */
-        float getDenivelePositif(void) const;
+        float getDenivele(const Sens aSens = MONTANT) const;
 
 /**
- * Retourne la somme des descentes.
- * \return Un entier indiquant la somme des progressions négatives.
+ * Retourne le premier point de la trace.
+ * \return Un pointeur sur le premier PointGPX trouvé dans la trace.
+ * \warning Ne tient pas compte de l'ordre chronologique (champ time).
  */
-        float getDeniveleNegatif(void) const;
+        const PointGPX* premier(void) const;
+
+/**
+ * Retourne le dernier point de la trace.
+ * \return Un pointeur sur le dernier PointGPX trouvé dans la trace.
+ * \warning Ne tient pas compte de l'ordre chronologique (champ time).
+ */
+        const PointGPX* dernier(void) const;
+
+/**
+ * Retourne la longueur de la trace mesurée à l'altitude 0.
+ * \return Un réel indiquant la longueur en mètres.
+ */
+        float longueur(void) const;
 
 };
 

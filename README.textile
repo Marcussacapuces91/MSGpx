@@ -1,0 +1,14 @@
+h3. Présentation
+
+MSGpx est un petit parseur de trace GPX.
+
+Son but initial est de calculer le dénivelé montant et descendant d'un parcours.
+
+Il est maintenu par Marc Sibert et est sous licence WTFPL version 2 
+(Do What The Fuck You Want To Public License).
+Il existe une page web qui explique clairement de quoi il retourne : 
+http://sam.zoy.org/wtfpl/
+
+h3. Dépendances :
+ 
+* TinyXml (sous licence zlib) 

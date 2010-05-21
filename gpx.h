@@ -32,7 +32,7 @@ class Gpx
         Gpx(const string& aFichier = "");
 
 /**
- * Destructeur de l'instance.*
+ * Destructeur de l'instance.
  */
         ~Gpx(void);
 
@@ -47,6 +47,33 @@ class Gpx
  * \return Un entier indiquant la somme des progressions négatives.
  */
         unsigned getDeniveleNegatif(void) const;
+
+/**
+ * Indique si le fichier ne contient aucune trace (<trk>) exploitable.
+ * \return true s'il n'y a pas de trace, false sinon.
+ */
+        bool noTrack(void) const { return fTracks.empty(); }
+
+/**
+ * Retourne le premier point du fichier.
+ * \return Un pointeur sur le premier PointGPX trouvé dans le fichier.
+ * \warning Ne tient pas compte de l'ordre chronologique (champ time).
+ */
+        const PointGPX* premier(void) const;
+
+/**
+ * Retourne le dernier point du fichier.
+ * \return Un pointeur sur le dernier PointGPX trouvé dans le fichier.
+ * \warning Ne tient pas compte de l'ordre chronologique (champ time).
+ */
+        const PointGPX* dernier(void) const;
+
+/**
+ * Retourne la longueur des traces mesurée à l'altitude 0.
+ * \return Un réel indiquant la longueur en mètres.
+ */
+        float longueur(void) const;
+
 };
 
 #endif // GPX_H_INCLUDED

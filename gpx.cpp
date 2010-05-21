@@ -35,15 +35,33 @@ Gpx::~Gpx(void)
 unsigned Gpx::getDenivelePositif(void) const
 {   float den = 0;
     for (vector<Track*>::const_iterator it = fTracks.begin(); it != fTracks.end(); ++it)
-        den += (*it)->getDenivelePositif();
+        den += (*it)->getDenivele(Track::MONTANT);
     return static_cast<unsigned>(den + 0.5);
 }
 
 unsigned Gpx::getDeniveleNegatif(void) const
 {   float den = 0;
     for (vector<Track*>::const_iterator it = fTracks.begin(); it != fTracks.end(); ++it)
-        den += (*it)->getDeniveleNegatif();
-    return static_cast<unsigned>(den + 0.5);
+        den += (*it)->getDenivele(Track::DESCENDANT);
+    return int(den + 0.5);
 }
 
+const PointGPX* Gpx::premier(void) const
+{
+    if (fTracks.empty()) throw string("Aucune trace trouvée");
+    return fTracks[0]->premier();
+}
+
+const PointGPX* Gpx::dernier(void) const
+{
+    if (fTracks.empty()) throw string("Aucune trace trouvée");
+    return fTracks[fTracks.size() - 1]->dernier();
+}
+
+float Gpx::longueur(void) const
+{   float lon = 0;
+    for (vector<Track*>::const_iterator it = fTracks.begin(); it != fTracks.end(); ++it)
+        lon += (**it).longueur();
+    return lon;
+}
 
