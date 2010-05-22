@@ -9,6 +9,7 @@
 #include "tinyxml\tinyxml.h"
 #include <iostream>
 #include "track.h"
+#include "pointgpx.h"
 
 using namespace std;
 
@@ -21,15 +22,24 @@ Gpx::Gpx(const string& aFichier)
         TiXmlElement *const pGpx = dynamic_cast<TiXmlElement *const>(doc.FirstChild("gpx"));
         if (!pGpx) throw string("Element <gpx> attendu");
 
+// Récupération des traces.
         for (TiXmlNode* pTrk = pGpx->FirstChild("trk"); pTrk; pTrk = pTrk->NextSibling() ) {
             fTracks.push_back(Track::parser(*dynamic_cast<TiXmlElement *const>(pTrk)));
         }
+
+// Récupération des WayPoints.
+        for (TiXmlNode* pWpt = pGpx->FirstChild("wpt"); pWpt; pWpt = pWpt->NextSibling() ) {
+            fWayPoints.push_back(PointGPX::parser(*dynamic_cast<TiXmlElement *const>(pWpt)));
+        }
+
+
     }
 }
 
 Gpx::~Gpx(void)
 {
     for (unsigned i = 0; i < fTracks.size(); ++i) delete fTracks[i];
+    for (unsigned i = 0; i < fWayPoints.size(); ++i) delete fWayPoints[i];
 }
 
 unsigned Gpx::getDenivelePositif(void) const

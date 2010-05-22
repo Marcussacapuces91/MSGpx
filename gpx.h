@@ -19,9 +19,14 @@ using namespace std;
 class Gpx
 {
     private:
+/// Liste des Traces.
         vector<Track*> fTracks;
 
+/// Liste des WayPoints.
+        vector<PointGPX*> fWayPoints;
+
     protected:
+
     public:
 /**
  * Contructeur de l'instance.
