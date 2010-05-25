@@ -9,6 +9,6 @@ Il est maintenu par Marc Sibert et est sous licence WTFPL version 2
 Il existe une page web qui explique clairement de quoi il retourne : 
 http://sam.zoy.org/wtfpl/
 
-h3. Dépendances :
+h3. Dépendances
  
-* TinyXml (sous licence zlib) 
+* TinyXml (sous licence zlib) ; ce n'est pas vraiment une "dépendance" puisque le code de la librairie est inclus dans le source de ce projet et est compilé statiquement avec le reste du code source.
